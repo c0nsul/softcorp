@@ -1,0 +1,24 @@
+DefaultLanguage ru
+AddDefaultCharset utf-8
+DirectoryIndex index.php
+
+ErrorDocument 404 /errors/error_404.html
+ErrorDocument 500 /errors/error_500.html
+
+php_value post_max_size 30M
+php_value upload_max_filesize 30M
+
+RewriteEngine On
+RewriteBase /
+Options -Indexes
+Options +FollowSymlinks
+Options -MultiViews 
+
+
+
+
+#index
+RewriteRule /$ index.php [L]
+
+
+

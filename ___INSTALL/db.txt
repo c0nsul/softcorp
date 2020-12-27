@@ -1,0 +1,26 @@
+CREATE DATABASE `softcorp_tz_parser` DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+
+CREATE TABLE `news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `topic` varchar(255) COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `body` text COLLATE utf8_general_ci NULL,
+  `source` tinyint(3) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `sources` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `parse_url` text COLLATE utf8_general_ci NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(255) COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+#pass:' 123'
+insert into `admin`  (`login`, `password`) values  ('admin', '$2y$10$e5A2PfRaSycyWZpRlXwuIuLVmXhzG9IJ3eU1msucl9NB0jmvnAi4K')
