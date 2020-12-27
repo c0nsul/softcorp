@@ -4,17 +4,25 @@
  * class news sources
 
  */
-class Sources
+class Sources  extends CRUD
 {
+
 	/**
+	 * Create
 	 *
+	 * @param $data
 	 */
-	public function get_source_list (){
+	public function create($data){
 
 	}
 
-
-	public function get_source_by_id ($id){
+	/**
+	 * Read
+	 *
+	 * @param $id
+	 * @return array|false
+	 */
+	public function read($id){
 
 		$id = (int)$id;
 
@@ -32,6 +40,38 @@ class Sources
 			return false;
 		}
 	}
+
+
+
+	/**
+	 * Update
+	 *
+	 * @param $id
+	 * @param $data
+	 */
+	public function update($id, $data){
+
+	}
+
+	/**
+	 * Delete
+	 *
+	 * @param $id
+	 */
+	public function delete($id){
+
+	}
+
+
+
+	/**
+	 *
+	 */
+	public function get_source_list (){
+
+	}
+
+
 
 
 

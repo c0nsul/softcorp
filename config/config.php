@@ -19,8 +19,10 @@ set_time_limit(60);
 session_start();
 ini_set('error_log', 'error_log.txt');
 ini_set('memory_limit', '256M');
-
 define('_SET_PAGING_LIMIT', 10);
+//auth
+define("SECRET", "superpass");
+
 
 
 if (strstr($_SERVER['HTTP_HOST'], "softcorp.")) {

@@ -6,7 +6,7 @@
         <div class="card-body">
             <span style="color: red">{WARN}</span><br><br>
 
-            <form method="post" action="login.php">
+            <form method="post" action="admin.php">
                 <div class="form-group">
                     <div class="form-label-group">
                         <input type="login" id="inputLogin" class="form-control" placeholder="login" required="required" autofocus="autofocus" name="login">
