@@ -1,5 +1,7 @@
 <?php
 
+namespace Parser\Classes;
+
 /**
  * class news
  */
@@ -23,7 +25,7 @@ class Admin
 				if (password_verify($pass, $row['password'])) {
 					// Success!
 					$_SESSION['admin'] = md5(SECRET);
-					header('Location: admin.php');
+					header('Location: login.php');
 				} else {
 					return false;
 				}
@@ -31,5 +33,13 @@ class Admin
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 *  admin logout
+	 */
+	public function logout(){
+		unset($_SESSION['admin']);
+		header('Location: index.php');
 	}
 }

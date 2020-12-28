@@ -1,5 +1,10 @@
 <?php
 
+//FOLDERS
+define('CONFIG_DIR', $_SERVER['DOCUMENT_ROOT'] . '/config/');
+define('CLASS_DIR', $_SERVER['DOCUMENT_ROOT'] . '/classes/');
+define('LIB_DIR', $_SERVER['DOCUMENT_ROOT'] . '/lib/');
+
 //debug
 define('DEBUG', false);
 

@@ -1,5 +1,7 @@
 <?php
 
+namespace Parser\Classes;
+
 /**
  * Class DB
  */

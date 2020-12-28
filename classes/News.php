@@ -1,5 +1,7 @@
 <?php
 
+namespace Parser\Classes;
+
 /**
  * class news
  */

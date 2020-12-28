@@ -30,7 +30,7 @@
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="admin.php">Admin</a>
+                    <a href="login.php">Admin</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <a href="index.php">Новости</a>

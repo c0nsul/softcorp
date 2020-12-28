@@ -1,24 +1,27 @@
 <?php
 
 //init
-require_once($_SERVER['DOCUMENT_ROOT'] . '/' . 'config/boot.php');
+require_once("init.php");
+use Parser\Classes\Sources;
 
-if (!empty($_REQUEST['logout'])) {
-	unset($_SESSION['admin']);
-	header('Location: index.php');
-}
-
+//auth
 if (!isset($_SESSION['admin'])) {
-
-	if (!empty($_REQUEST['login']) && !empty($_REQUEST['pass'])) {
-		$admin = new Admin();
-		$admin->login($_REQUEST['login'], $_REQUEST['pass']);
-	}
-	$obj->parse("CONTEXT", ".login");
-} else {
-	$obj->parse("CONTEXT", ".admin");
+	header('Location: login.php');
 }
 
+$src = new Sources();
+
+//delete
+if (!empty($_REQUEST['del_id']) && (int)$_REQUEST['del_id'] > 0) {
+	$src->delete($_REQUEST['del_id']);
+	header('Location: admin.php');
+}
+
+
+$src->get_source_list($obj);
+
+//admin page
+$obj->parse("CONTEXT", ".admin");
 
 $obj->no_strict(); //для отладки
 $obj->parse('result', "index");
