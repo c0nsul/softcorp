@@ -27,7 +27,7 @@ ini_set('memory_limit', '256M');
 define('_SET_PAGING_LIMIT', 10);
 //auth
 define("SECRET", "superpass");
-define("STORE", "/store");
+define("STORE", $_SERVER['DOCUMENT_ROOT']."/store");
 
 
 if (strstr($_SERVER['HTTP_HOST'], "softcorp.")) {

@@ -1,27 +1,36 @@
 <?php
 
 namespace Parser\Classes;
-
+use Exception;
 
 /**
  * class images
  */
 class Images extends CRUD
 {
+
+	/**
+	 * @var Crawler
+	 */
+	private $crawler;
+
+	/**
+	 * Parser constructor.
+	 */
+	public function __construct()
+	{
+		$this->crawler = new Crawler();
+	}
+
 	/**
 	 * @param $remote
 	 * @param $local
+	 * @throws Exception
 	 */
 	private function save_image($remote, $local){
-		$ch = curl_init($remote);
-		$fp = fopen(STORE."/{$local}", 'wb');
-		curl_setopt($ch, CURLOPT_FILE, $fp);
-		curl_setopt($ch, CURLOPT_HEADER, 0);
-		curl_exec($ch);
-		if (curl_errno($ch)) {
-			throw new Exception('Error with curl response: '.curl_error($ch));
-		}
-		curl_close($ch);
+		$pageCode = $this->crawler->getPage(["url" => $remote]);
+		$fp = fopen(STORE."/{$local}",'w');
+		fwrite($fp, $pageCode['data']['content']);
 		fclose($fp);
 	}
 
@@ -29,14 +38,17 @@ class Images extends CRUD
 	 * Create
 	 *
 	 * @param $data
+	 * @throws Exception
 	 */
 	public function create($data)
 	{
 		foreach ($data as $datum){
 			if (!empty($datum['image'])){
-				$localImgName = md5($datum['image']);
-				$this->save_image($datum['image'], "{$localImgName}.jpg");
-				$sql = "INSERT INTO `images` SET `name`='{$localImgName}',`news_id`={$datum['id']};";
+				$localImgName = md5($datum['image']).".jpg";
+
+				//TODO check is IMAGE EXIST!!!!!!!
+				$this->save_image($datum['image'], $localImgName);
+				$sql = "INSERT INTO `images` SET `name`='{$localImgName}',`news_id`={$datum['news_id']};";
 				DB::query($sql);
 			}
 		}
@@ -46,10 +58,20 @@ class Images extends CRUD
 	 * Read
 	 *
 	 * @param $id
+	 * @return false|mixed
 	 */
 	public function read($id)
 	{
-
+		$id = (int)$id;
+		$sql = "select `name` from `images` where `news_id`={$id}";
+		$result = DB::query($sql);
+		if (DB::num_rows($result) > 0) {
+			while ($row = DB::fetch_array($result)) {
+				return $row['name'];
+			}
+		} else {
+			return false;
+		}
 	}
 
 

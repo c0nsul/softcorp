@@ -73,6 +73,10 @@
             return false;
         }
     }
+
+    function startParser(id){
+        $('#src_'+id).html('In progress...');
+    }
 </script>
 
 

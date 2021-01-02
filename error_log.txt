@@ -1,3 +1,0 @@
-[02-Jan-2021 14:36:35 europe/kaliningrad] PHP Warning:  fopen(/store/e85e73236e0845c35acbc42a58078782.jpg): failed to open stream: No such file or directory in Z:\home\SOFTCORP\www\classes\Images.php on line 17
-[02-Jan-2021 14:36:35 europe/kaliningrad] PHP Warning:  curl_setopt(): supplied argument is not a valid File-Handle resource in Z:\home\SOFTCORP\www\classes\Images.php on line 18
-[02-Jan-2021 14:36:36 europe/kaliningrad] PHP Fatal error:  Class 'Parser\Classes\Exception' not found in Z:\home\SOFTCORP\www\classes\Images.php on line 22

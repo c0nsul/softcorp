@@ -83,6 +83,7 @@ class Parser
 	/**
 	 * @param $data
 	 * @return bool
+	 * @throws Exception
 	 */
 	public function rbk_parse($data)
 	{

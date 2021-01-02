@@ -16,11 +16,17 @@ class News extends CRUD
 	private $sources;
 
 	/**
+	 * @var
+	 */
+	private $images;
+
+	/**
 	 * News constructor.
 	 */
 	public function __construct()
 	{
 		$this->sources = new Sources();
+		$this->images = new Images();
 	}
 
 	/**
@@ -33,7 +39,6 @@ class News extends CRUD
 	{
 		$createdArray = [];
 		foreach ($data as $item) {
-			$checkResult = false;
 			$topic = DB::esc($item['topic']);
 			$body = DB::esc($item['body']);
 			$external_id = DB::esc($item['external_id']);
@@ -117,6 +122,12 @@ class News extends CRUD
 				$obj->assign("NEWS_DATE", date("d.m.Y", $row['date']));
 				$obj->assign("NEWS_TOPIC", $row['topic']);
 				$obj->assign("NEWS_BODY", $row['body']);
+
+				$newsImg = $this->images->read($row['id']);
+				if ($newsImg) {
+					$obj->assign("NEWS_IMAGE", $newsImg);
+					$obj->parse('NEWS_IMG', ".img");
+				}
 				$srcData = $this->sources->read($row['source']);
 				$obj->assign("NEWS_SRC", $srcData['name']);
 			}

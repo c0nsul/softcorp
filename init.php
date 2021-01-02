@@ -51,6 +51,7 @@ $obj->define(array(
 	"login" => "login.tpl",
 	"admin" => "admin.tpl",
 	"src_in" => "src_in.tpl",
+	"img" => "img.tpl",
 ));
 
 //DB init

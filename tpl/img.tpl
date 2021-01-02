@@ -1,0 +1,1 @@
+<img width="50%" src="/store/{NEWS_IMAGE}">
