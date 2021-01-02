@@ -15,6 +15,9 @@ class News extends CRUD
 	 */
 	private $sources;
 
+	/**
+	 * News constructor.
+	 */
 	public function __construct()
 	{
 		$this->sources = new Sources();
@@ -24,10 +27,45 @@ class News extends CRUD
 	 * Create
 	 *
 	 * @param $data
+	 * * @return array
 	 */
 	public function create($data)
 	{
+		$createdArray = [];
+		foreach ($data as $item) {
+			$checkResult = false;
+			$topic = DB::esc($item['topic']);
+			$body = DB::esc($item['body']);
+			$external_id = DB::esc($item['external_id']);
+			$time = time();
 
+			$checkResult = $this->check_existing_news($item['external_id']);
+			if ($checkResult) {
+				//news already exist in DB
+				continue;
+			}
+
+			$sql = "INSERT INTO `news` SET `topic`='{$topic}',`body`='{$body}',`source`={$item['source_id']},`external_id`='{$external_id}',`date`={$time}";
+			DB::query($sql);
+			$item['news_id'] = DB::insert_id();
+			$createdArray[] = $item;
+		}
+		return $createdArray;
+	}
+
+	/**
+	 * @param $external_id
+	 * @return bool
+	 */
+	public function check_existing_news($external_id)
+	{
+		$sql = "select `id` from `news` where `external_id`='{$external_id}'";
+		$result = DB::query($sql);
+		if (DB::num_rows($result) > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -39,7 +77,6 @@ class News extends CRUD
 	{
 
 	}
-
 
 	/**
 	 * Update
@@ -62,14 +99,13 @@ class News extends CRUD
 
 	}
 
-
 	/**
 	 * news by ID
 	 *
 	 * @param $obj
 	 * @param $id
 	 */
-	public function get_news_by_id($obj, $id)
+	public function get_news_object_by_id($obj, $id)
 	{
 		$id = (int)$id;
 		$sql = "select * from `news` where `id`={$id}";

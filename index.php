@@ -8,7 +8,7 @@ $news = new News();
 
 if ($_REQUEST['id'] && (int)$_REQUEST['id'] >0){
 	//news by ID
-	$news->get_news_by_id($obj, $_REQUEST['id']);
+	$news->get_news_object_by_id($obj, $_REQUEST['id']);
 	$obj->parse("CONTEXT", ".news_read");
 } else {
 	//all news

@@ -26,16 +26,34 @@
 
     <div id="content-wrapper">
 
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Парсер новостей</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" aria-current="page" href="index.php">Новости</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.php">Админ</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.php?logout=1">Выход</a>
+                        </li>
+
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+
         <div class="container-fluid">
-            <!-- Breadcrumbs-->
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="login.php">Admin</a>
-                </li>
-                <li class="breadcrumb-item active">
-                    <a href="index.php">Новости</a>
-                </li>
-            </ol>
 
             {CONTEXT}
 

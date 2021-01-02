@@ -1,4 +1,23 @@
-<a class="float-right" href="login.php?logout=1">Logout</a></br></br>
+<br>
+<br>
+<div class="card-header">
+    <i class="fas fa-table"></i>Новый источник</div>
+<div class="card-body">
+    <div class="table">
+
+        <form method="post" action="admin.php" class="form-inline">
+            <div class="form-group mb-2">
+                <input type="text"  class="form-control" required name="srcName" placeholder="Наименование">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" class="form-control" required name="srcUrl" style="width: 500px" placeholder="URL">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Добавить</button>
+        </form>
+
+
+    </div>
+</div>
 
 
 <!-- DataTables Example -->
@@ -14,8 +33,8 @@
                     <th>N</th>
                     <th>Имя</th>
                     <th>URL</th>
-                    <th>Удалить</th>
-                    <th>Запустить</th>
+                    <th>Действие</th>
+                    <th>Запуск</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -26,8 +45,8 @@
                     <th>N</th>
                     <th>Имя</th>
                     <th>URL</th>
-                    <th>Удалить</th>
-                    <th>Запустить</th>
+                    <th>Действие</th>
+                    <th>Запуск</th>
                 </tr>
                 </tfoot>
 
@@ -38,26 +57,6 @@
 </div>
 
 
-<div class="card-header">
-    <i class="fas fa-table"></i>Новый источник</div>
-<div class="card-body">
-    <div class="table-responsive">
-        <form  method="post" action="admin.php" class="row g-3">
-            <div class="col-auto">
-                <label for="staticEmail2" class="visually-hidden">Имя</label>
-                <input type="text" class="form-control" id="name" placeholder="Имя">
-            </div>
-            <div class="col-auto">
-                <label for="inputPassword2" class="visually-hidden">URL</label>
-                <input type="text" class="form-control" id="url" placeholder="URL">
-            </div>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-3">добавить</button>
-            </div>
-        </form>
-    </div>
-</div>
-
 
 <!-- /#wrapper -->
 <script>
@@ -66,4 +65,15 @@
             stateSave: true
         } );
     } );
+
+    function confirmDelete() {
+        if (confirm("Вы подтверждаете удаление?")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 </script>
+
+
+

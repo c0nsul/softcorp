@@ -12,14 +12,14 @@ if (!empty($_REQUEST['logout'])) {
 }
 
 //auth
-if (!isset($_SESSION['admin'])) {
+if (isset($_SESSION['admin']) && (md5(SECRET) == $_SESSION['admin'])) {
+	header('Location: admin.php');
+} else {
 	if (!empty($_POST['login']) && !empty($_POST['pass'])) {
 		$auth->login($_REQUEST['login'], $_REQUEST['pass']);
 	} else {
 		$obj->parse("CONTEXT", ".login");
 	}
-} else {
-	header('Location: admin.php');
 }
 
 $obj->no_strict(); //для отладки

@@ -14,7 +14,10 @@ class Sources extends CRUD
 	 */
 	public function create($data)
 	{
-
+		$name = DB::esc(trim($data['srcName']));
+		$url = DB::esc(trim($data['srcUrl']));
+		$sql = "INSERT INTO `sources` SET `name`='{$name}',`parse_url`='{$url}';";
+		DB::query($sql);
 	}
 
 	/**
