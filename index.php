@@ -6,6 +6,7 @@ use Parser\Classes\News;
 
 $news = new News();
 
+
 if ($_REQUEST['id'] && (int)$_REQUEST['id'] >0){
 	//news by ID
 	$news->get_news_object_by_id($obj, $_REQUEST['id']);
@@ -15,6 +16,9 @@ if ($_REQUEST['id'] && (int)$_REQUEST['id'] >0){
 	$news->get_news_list($obj);
 	$obj->parse("CONTEXT", ".news");
 }
+
+//light menu
+$obj->assign("ACTIVE_NEWS", 'active');
 
 $obj->no_strict(); //для отладки
 $obj->parse('result', "index");

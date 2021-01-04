@@ -5,7 +5,7 @@
 <div class="card-body">
     <div class="table">
 
-        <form method="post" action="admin.php" class="form-inline">
+        <form method="post" action="admin.php?route=create" class="form-inline">
             <div class="form-group mb-2">
                 <input type="text"  class="form-control" required name="srcName" placeholder="Наименование">
             </div>

@@ -7,6 +7,26 @@ namespace Parser\Classes;
  */
 class Admin
 {
+
+	/**
+	 * auth admin check
+	 *
+	 * @return bool
+	 */
+	public function auth_check()
+	{
+		if (isset($_SESSION['admin']) && !empty($_SESSION['admin'])) {
+			$hash = md5(SECRET);
+			if (strcmp($_SESSION['admin'], $hash) == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
 	/**
 	 * @param $login
 	 * @param $pass
@@ -25,7 +45,7 @@ class Admin
 				if (password_verify($pass, $row['password'])) {
 					// Success!
 					$_SESSION['admin'] = md5(SECRET);
-					header('Location: login.php');
+					header('Location: admin.php');
 				} else {
 					return false;
 				}
@@ -38,7 +58,8 @@ class Admin
 	/**
 	 *  admin logout
 	 */
-	public function logout(){
+	public function logout()
+	{
 		unset($_SESSION['admin']);
 		header('Location: index.php');
 	}

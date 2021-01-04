@@ -1,0 +1,1 @@
+<a onclick="return confirmDeleteNews();" href="admin.php?route=del_news&id={NEWS_ID}">X</a>

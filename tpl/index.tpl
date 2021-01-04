@@ -34,16 +34,14 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                        <li class="nav-item active">
+                        <li class="nav-item {ACTIVE_NEWS}">
                             <a class="nav-link" aria-current="page" href="index.php">Новости</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {ACTIVE_ADMIN}" >
                             <a class="nav-link" href="login.php">Админ</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.php?logout=1">Выход</a>
-                        </li>
+                        {ADMIN_MENU}
 
 
                     </ul>

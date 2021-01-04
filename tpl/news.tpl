@@ -14,6 +14,7 @@
                             <th>Заголовок</th>
                             <th>Коротко</th>
                             <th>Источник</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -26,6 +27,7 @@
                             <th>Заголовок</th>
                             <th>Коротко</th>
                             <th>Источник</th>
+                            <th></th>
                         </tr>
                         </tfoot>
 
@@ -45,4 +47,12 @@
             stateSave: true
         } );
     } );
+
+    function confirmDeleteNews() {
+        if (confirm("Вы подтверждаете удаление?")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 </script>

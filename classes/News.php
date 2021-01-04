@@ -2,6 +2,8 @@
 
 namespace Parser\Classes;
 
+use Exception;
+
 /**
  * class news
  */
@@ -77,10 +79,25 @@ class News extends CRUD
 	 * Read
 	 *
 	 * @param $id
+	 * @return array|false
 	 */
 	public function read($id)
 	{
-
+		$id = (int)$id;
+		$sql = "select * from `news` where `id`={$id}";
+		$result = DB::query($sql);
+		if (DB::num_rows($result) > 0) {
+			$data = [];
+			while ($row = DB::fetch_array($result)) {
+				$data['topic'] = $row['topic'];
+				$data['body'] = $row['body'];
+				$data['source'] = $row['source'];
+				$data['external_id'] = $row['external_id'];
+				$data['date'] = $row['date'];
+			}
+			return $data;
+		}
+		return false;
 	}
 
 	/**
@@ -88,20 +105,24 @@ class News extends CRUD
 	 *
 	 * @param $id
 	 * @param $data
+	 *     * @throws Exception
 	 */
 	public function update($id, $data)
 	{
-
+		throw new Exception('Not implemented');
 	}
 
 	/**
 	 * Delete
 	 *
 	 * @param $id
+	 * @return mixed|void
 	 */
 	public function delete($id)
 	{
-
+		$id = (int)$id;
+		$sql = "DELETE from `news` where `id`={$id} LIMIT 1";
+		DB::query($sql);
 	}
 
 	/**
@@ -123,9 +144,9 @@ class News extends CRUD
 				$obj->assign("NEWS_TOPIC", $row['topic']);
 				$obj->assign("NEWS_BODY", $row['body']);
 
-				$newsImg = $this->images->read($row['id']);
+				$newsImg = $this->images->read_by_news_id($row['id']);
 				if ($newsImg) {
-					$obj->assign("NEWS_IMAGE", $newsImg);
+					$obj->assign("NEWS_IMAGE", $newsImg['name']);
 					$obj->parse('NEWS_IMG', ".img");
 				}
 				$srcData = $this->sources->read($row['source']);
@@ -152,8 +173,12 @@ class News extends CRUD
 				$obj->assign("NEWS_BODY",
 					mb_substr($row['body'], $this->startNewsPreviewString, $this->maxNewsPreview, 'UTF-8') . "...");
 				$srcData = $this->sources->read($row['source']);
+				if ($_SESSION['admin']) {
+					$obj->parse('NEWS_DEL', ".news_del");
+				}
 				$obj->assign("NEWS_SRC", $srcData['name']);
 				$obj->parse('NEWS_IN', ".news_in");
+				$obj->clear('NEWS_DEL');
 			}
 		}
 	}

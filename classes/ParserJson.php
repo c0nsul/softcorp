@@ -9,7 +9,7 @@ use phpQuery;
 /**
  * class parser
  */
-class Parser
+class ParserJson
 {
 	const RBC_WEBSITE = 'RBC';
 
@@ -56,21 +56,16 @@ class Parser
 		$parsingData = $this->sources->read($id);
 
 		try {
+			$parsingData['parse_url'] = $parsingData['parse_url'] . "/limit/20?_=" . time();
+
 			$pageCode = $this->crawler->getPage(["url" => $parsingData['parse_url']]);
 			$pageCode['source_id'] = $id;
-
-			/*
-			if (!empty($pageCode['error'])) {
-				return $pageCode['error'];
-			}
-			*/
 
 			switch ($parsingData['name']) {
 				case self::RBC_WEBSITE:
 					$this->rbk_parse($pageCode);
 					break;
 				case 'other':
-					//TODO implementing other website
 					throw new Exception('Not implemented');
 				default:
 					return false;
@@ -107,20 +102,26 @@ class Parser
 	 */
 	public function parse_rbk_short_feed($data)
 	{
-		$document = phpQuery::newDocument($data['data']['content']);
-		$dataRow = $document->find('div.js-news-feed-list > a.news-feed__item');
+		$dataRow = json_decode($data['data']['content'], true);
+
 		$i = 0;
 		$linksArray = [];
-		foreach ($dataRow as $item) {
+		foreach ($dataRow['items'] as $item) {
 
-			$linksArray[$i]['url'] = pq($item)->attr('href');
-			if (strstr($linksArray[$i]['url'], 'traffic')) {
+			$document = phpQuery::newDocument($item['html']);
+			$element = $document->find('a');
+
+			$linksArray[$i]['url'] = $element->attr('href');
+
+			if (strstr($linksArray[$i]['url'], 'traffic.')) {
 				//AD link is not RBC news - removed
 				unset($linksArray[$i]);
 				continue;
 			}
-			$linksArray[$i]['external_id'] = pq($item)->attr('id');
-			$linksArray[$i]['topic'] = pq($item)->html();
+			$linksArray[$i]['external_id'] = $element->attr('id');
+
+			$topicFix = explode('</span>', $element->html());
+			$linksArray[$i]['topic'] = trim(strip_tags($topicFix[0]));
 			$linksArray[$i]['source_id'] = $data['source_id'];
 			$i++;
 
@@ -128,6 +129,7 @@ class Parser
 				break;
 			}
 		}
+
 		return $linksArray;
 	}
 
@@ -167,9 +169,6 @@ class Parser
 				$dataRow->find('div.article__main-image__author')->remove();
 				//final data
 				$link['body'] = strip_tags(pq($dataRow)->html());
-				$topicFix = explode('</span>', $link['topic']);
-
-				$link['topic'] = trim(strip_tags($topicFix[0]));
 				$newLink[] = $link;
 
 			} catch (Exception $e) {

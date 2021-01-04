@@ -1,5 +1,6 @@
 <?php
 use Parser\Classes\DB;
+use Parser\Classes\Admin;
 
 //init
 require_once($_SERVER['DOCUMENT_ROOT'] . '/' . 'config/config.php');
@@ -52,7 +53,14 @@ $obj->define(array(
 	"admin" => "admin.tpl",
 	"src_in" => "src_in.tpl",
 	"img" => "img.tpl",
+	"news_del" => "news_del.tpl",
+	"admin_menu" => "admin_menu.tpl",
 ));
 
 //DB init
 DB::getInstance();
+
+$admin = new Admin();
+if ($admin->auth_check()) {
+	$obj->parse("ADMIN_MENU", ".admin_menu");
+}
