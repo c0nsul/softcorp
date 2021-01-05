@@ -1,22 +1,21 @@
 <?php
 
+namespace Parser\Classes;
+
+/**
+ * @var obj $obj
+ * @var obj $admin
+ */
+
 //init
 require_once("init.php");
-use Parser\Classes\Admin;
-
-$auth = new Admin();
-
-//logout
-if (!empty($_REQUEST['logout'])) {
-	$auth->logout();
-}
 
 //auth
-if (isset($_SESSION['admin']) && (md5(SECRET) == $_SESSION['admin'])) {
+if ($admin->auth_check()) {
 	header('Location: admin.php');
 } else {
 	if (!empty($_POST['login']) && !empty($_POST['pass'])) {
-		$auth->login($_REQUEST['login'], $_REQUEST['pass']);
+		$admin->login($_REQUEST['login'], $_REQUEST['pass']);
 	} else {
 		$obj->parse("CONTEXT", ".login");
 	}

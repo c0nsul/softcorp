@@ -1,12 +1,14 @@
 <?php
+
 namespace Parser\Classes;
 
-//init
-require_once("init.php");
 /**
  * @var obj $obj
  * @var obj $admin
  */
+
+//init
+require_once("init.php");
 
 
 $src = new Sources();
@@ -37,7 +39,7 @@ switch ($_REQUEST['route']) {
 		header('Location: admin.php');
 		break;
 	case 'parser':
-		if (!empty($_REQUEST['id']) && (int)$_REQUEST['id']>0){
+		if (!empty($_REQUEST['id']) && (int)$_REQUEST['id'] > 0) {
 			$id = (int)$_REQUEST['id'];
 			$parser->init($id);
 		}
@@ -45,12 +47,16 @@ switch ($_REQUEST['route']) {
 		header('Location: admin.php');
 		break;
 	case 'del_news':
-		if (!empty($_REQUEST['id']) && (int)$_REQUEST['id']>0){
+		if (!empty($_REQUEST['id']) && (int)$_REQUEST['id'] > 0) {
 			$id = (int)$_REQUEST['id'];
 			$news->delete($id);
 			$images->delete_by_news_id($_REQUEST['del_news']);
 		}
 		$_SESSION['alert'] = 'success';
+		header('Location: index.php');
+		break;
+	case 'logout':
+		$admin->logout();
 		header('Location: index.php');
 		break;
 	case 'index':

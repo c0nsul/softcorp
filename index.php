@@ -1,11 +1,12 @@
 <?php
 namespace Parser\Classes;
 
-//init
-require_once("init.php");
 /**
  * @var obj $obj
  */
+
+//init
+require_once("init.php");
 
 $news = new News();
 $flash = new Flash();
