@@ -4,7 +4,7 @@
 require_once("init.php");
 
 $src = new Parser\Classes\Sources();
-$parserJson = new Parser\Classes\ParserJson();
+$parser = new Parser\Classes\Parser();
 $news = new Parser\Classes\News();
 $images = new Parser\Classes\Images();
 
@@ -30,7 +30,7 @@ switch ($_REQUEST['route']) {
 	case 'parser':
 		if (!empty($_REQUEST['id']) && (int)$_REQUEST['id']>0){
 			$id = (int)$_REQUEST['id'];
-			$parserJson->init_parsing($id);
+			$parser->init($id);
 		}
 		header('Location: admin.php');
 		break;

@@ -9,14 +9,8 @@ use phpQuery;
 /**
  * class parser
  */
-class ParserJson
+class ParserRbcJson
 {
-	const RBC_WEBSITE = 'RBC';
-
-	/**
-	 * @var Sources
-	 */
-	private $sources;
 
 	/**
 	 * @var Crawler
@@ -38,7 +32,6 @@ class ParserJson
 	 */
 	public function __construct()
 	{
-		$this->sources = new Sources();
 		$this->crawler = new Crawler();
 		$this->news = new News();
 		$this->images = new Images();
@@ -47,29 +40,16 @@ class ParserJson
 	/**
 	 * select parser type
 	 *
-	 * @param $id
+	 * @param $parsingData
 	 * @return false
 	 */
-	public function init_parsing($id)
+	public function init($parsingData)
 	{
-		$id = (int)$id;
-		$parsingData = $this->sources->read($id);
-
 		try {
 			$parsingData['parse_url'] = $parsingData['parse_url'] . "/limit/20?_=" . time();
-
 			$pageCode = $this->crawler->getPage(["url" => $parsingData['parse_url']]);
-			$pageCode['source_id'] = $id;
-
-			switch ($parsingData['name']) {
-				case self::RBC_WEBSITE:
-					$this->rbk_parse($pageCode);
-					break;
-				case 'other':
-					throw new Exception('Not implemented');
-				default:
-					return false;
-			}
+			$pageCode['source_id'] = $parsingData['id'];
+			$this->parse($pageCode);
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
@@ -80,27 +60,33 @@ class ParserJson
 	 * @return bool
 	 * @throws Exception
 	 */
-	public function rbk_parse($data)
+	public function parse($data)
 	{
-		//phase 1
-		$linksArray = $this->parse_rbk_short_feed($data);
+		try {
+			//phase 1
+			//get short news list
+			$linksArray = $this->parse_short_list($data);
 
-		//phase 2
-		$fullNewsArray = $this->parse_ever_feed_rbk($linksArray);
+			//phase 2
+			//parse every news url for getting news body/img
+			$fullNewsArray = $this->parse_ever_news($linksArray);
 
-		//phase 3
-		$fullNewsArrayUpdated = $this->news->create($fullNewsArray);
+			//phase 3
+			$fullNewsArrayUpdated = $this->news->create($fullNewsArray);
 
-		//phase 4
-		$this->images->create($fullNewsArrayUpdated);
-		return true;
+			//phase 4
+			$this->images->create($fullNewsArrayUpdated);
+			return true;
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
 	}
 
 	/**
 	 * @param $data
 	 * @return array
 	 */
-	public function parse_rbk_short_feed($data)
+	public function parse_short_list($data)
 	{
 		$dataRow = json_decode($data['data']['content'], true);
 
@@ -137,7 +123,7 @@ class ParserJson
 	 * @param $linksArray
 	 * @return array
 	 */
-	public function parse_ever_feed_rbk($linksArray)
+	public function parse_ever_news($linksArray)
 	{
 		$newLink = [];
 		foreach ($linksArray as $link) {
