@@ -10,12 +10,12 @@
                 <input type="text"  class="form-control" required name="srcName" placeholder="Наименование">
             </div>
             <div class="form-group mx-sm-3 mb-2">
-                <input type="text" class="form-control" required name="srcUrl" style="width: 500px" placeholder="URL">
+                <input type="url" class="form-control" id="url" required name="srcUrl" style="width: 500px" placeholder="http://">
             </div>
             <button type="submit" class="btn btn-primary mb-2">Добавить</button>
         </form>
 
-
+        {SRC_ALERT}
     </div>
 </div>
 
@@ -26,6 +26,7 @@
         <i class="fas fa-table"></i>
         Источники новостей</div>
     <div class="card-body">
+        {NEWS_ALERT}
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -78,6 +79,3 @@
         $('#src_'+id).html('In progress...');
     }
 </script>
-
-
-

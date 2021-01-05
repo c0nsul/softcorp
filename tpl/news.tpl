@@ -5,6 +5,7 @@
                 <i class="fas fa-table"></i>
                 Новости</div>
             <div class="card-body">
+                {NEWS_ALERT}
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>

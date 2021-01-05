@@ -28,7 +28,8 @@ class Parser
 		$this->parserRbc = new ParserRbcJson();
 	}
 
-	public function init($id){
+	public function init($id)
+	{
 		$id = (int)$id;
 		$sourceData = $this->sources->read($id);
 

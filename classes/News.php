@@ -68,11 +68,7 @@ class News extends CRUD
 	{
 		$sql = "select `id` from `news` where `external_id`='{$external_id}'";
 		$result = DB::query($sql);
-		if (DB::num_rows($result) > 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return DB::num_rows($result) > 0;
 	}
 
 	/**
@@ -122,7 +118,7 @@ class News extends CRUD
 	{
 		$id = (int)$id;
 		$sql = "DELETE from `news` where `id`={$id} LIMIT 1";
-		DB::query($sql);
+		return DB::query($sql) ?  true :  false;
 	}
 
 	/**
@@ -182,4 +178,5 @@ class News extends CRUD
 			}
 		}
 	}
+
 }

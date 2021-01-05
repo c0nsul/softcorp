@@ -1,10 +1,8 @@
 <?php
-use Parser\Classes\DB;
-use Parser\Classes\Admin;
+namespace Parser\Classes;
 
 //init
 require_once($_SERVER['DOCUMENT_ROOT'] . '/' . 'config/config.php');
-
 
 //external libs
 require_once(LIB_DIR . "/phpQuery.php");
@@ -43,7 +41,7 @@ spl_autoload_register(function ($class) {
 
 //TEMPLATE ENGINE INIT
 define("TROOT", $_SERVER['DOCUMENT_ROOT'] . '/tpl/');
-$obj = new FastTemplate(TROOT);
+$obj = new \FastTemplate(TROOT);
 $obj->define(array(
 	"index" => "index.tpl",
 	"news" => "news.tpl",
@@ -55,6 +53,8 @@ $obj->define(array(
 	"img" => "img.tpl",
 	"news_del" => "news_del.tpl",
 	"admin_menu" => "admin_menu.tpl",
+	"alert" => "alert.tpl",
+	"alert_success" => "alert_success.tpl",
 ));
 
 //DB init

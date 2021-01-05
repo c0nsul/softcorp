@@ -1,4 +1,5 @@
 <?php
+
 namespace Parser\Classes;
 
 /**
@@ -11,13 +12,14 @@ class Sources extends CRUD
 	 * Create
 	 *
 	 * @param $data
+	 * @return bool
 	 */
 	public function create($data)
 	{
 		$name = DB::esc(trim($data['srcName']));
 		$url = DB::esc(trim($data['srcUrl']));
 		$sql = "INSERT INTO `sources` SET `name`='{$name}',`parse_url`='{$url}';";
-		DB::query($sql);
+		return DB::query($sql) ?  true :  false;
 	}
 
 	/**
@@ -52,18 +54,19 @@ class Sources extends CRUD
 	 */
 	public function update($id, $data)
 	{
-
+		throw new Exception('Not implemented');
 	}
 
 	/**
 	 * Delete
 	 *
 	 * @param $id
+	 * @return bool
 	 */
 	public function delete($id)
 	{
 		$sql = "DELETE from `sources` where `id`={$id}";
-		DB::query($sql);
+		return DB::query($sql) ?  true :  false;
 	}
 
 

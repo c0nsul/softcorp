@@ -54,14 +54,16 @@ class Images extends CRUD
 	public function read_by_news_id($id)
 	{
 		$id = (int)$id;
+		$data = [];
 		$sql = "select `name`,`id` from `images` where `news_id`={$id}";
 		$result = DB::query($sql);
 		if (DB::num_rows($result) > 0) {
 			while ($row = DB::fetch_array($result)) {
 				$data['name'] = $row['name'];
 				$data['id'] = $row['id'];
-				return $data;
+
 			}
+			return $data;
 		} else {
 			return false;
 		}
