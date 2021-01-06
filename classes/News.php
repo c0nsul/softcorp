@@ -158,7 +158,7 @@ class News extends CRUD
 	 */
 	public function get_news_list($obj)
 	{
-		$sql = "select * from `news` order by id desc limit 100";
+		$sql = "select * from `news` order by `id` desc limit 100";
 		$result = DB::query($sql);
 		if (DB::num_rows($result) > 0) {
 			while ($row = DB::fetch_array($result)) {

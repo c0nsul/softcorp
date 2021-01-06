@@ -10,8 +10,8 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>Дата</th>
                             <th>Время</th>
+                            <th>Дата</th>
                             <th>Заголовок</th>
                             <th>Коротко</th>
                             <th>Источник</th>
@@ -23,8 +23,8 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>Дата</th>
                             <th>Время</th>
+                            <th>Дата</th>
                             <th>Заголовок</th>
                             <th>Коротко</th>
                             <th>Источник</th>
