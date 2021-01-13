@@ -21,10 +21,10 @@
 external libs:<br>
 <br>
 phpQuery.php as html parser<br>
-class.FastTemplate.php  as template engine 
-dataTables as tables render
-bootstrap as base design
+class.FastTemplate.php  as template engine <br>
+dataTables as tables render<br>
+bootstrap as base design<br>
 <br>
-Аdmin page credentials:  admin/123
+Аdmin page credentials:  admin/123<br>
 
 
